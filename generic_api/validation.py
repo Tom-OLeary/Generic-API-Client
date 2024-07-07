@@ -35,6 +35,9 @@ class PostRecord:
             except TypeError as e:
                 validation_errors.append(e)
 
+        if validation_errors:
+            raise TypeError(f"{len(validation_errors)} validation errors occurred. Errors {validation_errors}")
+
     def validate_type(self, f: any):
         if not getattr(self, f.name):
             if f.default is not MISSING:

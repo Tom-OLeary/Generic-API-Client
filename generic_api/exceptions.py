@@ -17,6 +17,10 @@ class APIRequestException(Exception):
     pass
 
 
+class RequestHandlerException(Exception):
+    pass
+
+
 class APIClientException(Exception):
     def __init__(self, source: Union[Exception, HTTPError], api: any):
         self.source = source
