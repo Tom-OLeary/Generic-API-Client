@@ -1,7 +1,7 @@
 from unittest import mock, TestCase
 
 from generic_api.request_handler import RequestEnum, RequestHandler
-from generic_api.tests.util import mocked_requests_post
+from generic_api.tests.util import mocked_requests_post, mocked_requests_get
 
 
 @mock.patch("requests.post", side_effect=mocked_requests_post)
@@ -23,4 +23,14 @@ def test_create_record(mock_post):
     for key, value in post_data.items():
         assert response["data"][key] == value
 
+
+@mock.patch("requests.post", side_effect=mocked_requests_post)
+@mock.patch("requests.get", side_effect=mocked_requests_get)
+def test_create_record(mock_get, mock_post):
+    body = {"record_number": "Record1"}
+    trigger = "get_record"
+    handler = RequestHandler(trigger=trigger, body=body)
+    response = handler.handle_request()
+    assert response["status_code"] == 200
+    assert response["data"]["recordNumber"] == body["record_number"]
 

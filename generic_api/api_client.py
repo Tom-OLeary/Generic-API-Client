@@ -74,7 +74,7 @@ class APIClient:
 
     def get_record(self, query_params: dict) -> Optional[requests.Response]:
         return self.make_request(
-            method=APIClient.POST,
+            method=APIClient.GET,
             path="records/recordNumber",
             query_params=query_params,
         )
