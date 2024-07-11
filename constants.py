@@ -1,6 +1,6 @@
 import os
 
-ENV = os.environ.get("ENV")
+ENV = os.environ.get("ENV", "dev")
 
 # these would ideally be stored in a secrets manager
 API_USERNAME = "user1"

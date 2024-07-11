@@ -7,32 +7,20 @@ from generic_api.validation import PostRecord, GetRecord
 
 
 class RequestEnum(Enum):
-    POST_RECORD = (
-        "POST_RECORD",
-        "post_record",
-        PostRecord,
-    )
-    GET_RECORD = (
-        "GET_RECORD",
-        "get_record",
-        GetRecord,
-    )
-
-    @property
-    def trigger(self):
-        return self.value[0]
+    POST_RECORD = ("post_record", PostRecord)
+    GET_RECORD = ("get_record", GetRecord)
 
     @property
     def api_method(self):
-        return self.value[1]
+        return self.value[0]
 
     @property
     def format(self):
-        return self.value[2]
+        return self.value[1]
 
     @classmethod
     def valid_triggers(cls):
-        return [key.trigger for key in cls]
+        return [key.name.lower() for key in cls]
 
 
 class RequestHandler:
@@ -60,7 +48,7 @@ class RequestHandler:
             raise RequestHandlerException from e
 
         if response is None:
-            return
+            return {"status_code": 204, "data": {}}
 
         return {"status_code": response.status_code, "data": response.json()}
 
