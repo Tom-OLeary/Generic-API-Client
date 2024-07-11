@@ -8,11 +8,7 @@ class GetRecord:
 
     @property
     def request_body(self):
-        return {
-            "query_params": {
-                "recordNumber": self.record_number
-            }
-        }
+        return {"query_params": {"recordNumber": self.record_number}}
 
 
 @dataclass
@@ -50,6 +46,10 @@ class PostRecord:
         _value_type = type(getattr(self, f.name))
         if not isinstance(f.type, _value_type):
             raise TypeError(f"Invalid type for {f.name} {f.type}. Failing value type is {_value_type}")
+
+    @property
+    def request_body(self):
+        return {"body": {f.name: getattr(self, f.name) for f in fields(self)}}
 
 
 def empty_field(f_type: any):

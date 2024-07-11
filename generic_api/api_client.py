@@ -44,6 +44,8 @@ class APIClient:
             url: str = None,
             query_params: dict = None,
     ) -> Optional[requests.Response]:
+        """Sends API request to given path"""
+
         headers = {"Authorization": f"Bearer {self.access_token}"}
         url = url or self.BASE_URL + path
 
@@ -63,10 +65,10 @@ class APIClient:
 
         return response
 
-    def post_document(self, body: dict) -> Optional[requests.Response]:
+    def post_record(self, body: dict) -> Optional[requests.Response]:
         return self.make_request(
             method=APIClient.POST,
-            path="document",
+            path="records/createRecord",
             body=body,
         )
 
