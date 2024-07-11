@@ -19,7 +19,7 @@ class PostRecord:
 
     optional_str1: str = None
     optional_str2: str = None
-    optional_datetime: datetime = None
+    optional_datetime: str = None
     optional_list: list = None
     optional_dict: dict = None
 
@@ -44,7 +44,7 @@ class PostRecord:
 
         # recall getattr here in case field changes to new/default value
         _value_type = type(getattr(self, f.name))
-        if not isinstance(f.type, _value_type):
+        if f.type is not _value_type:
             raise TypeError(f"Invalid type for {f.name} {f.type}. Failing value type is {_value_type}")
 
     @property
@@ -53,12 +53,16 @@ class PostRecord:
 
 
 def empty_field(f_type: any):
-    if isinstance(f_type, str):
+    if f_type is str:
         return ""
-    elif isinstance(f_type, bool):
+    elif f_type is bool:
         return False
-    elif isinstance(f_type, int):
+    elif f_type is int:
         return 0
-    elif isinstance(f_type, float):
+    elif f_type is float:
         return 0.0
+    elif f_type is list:
+        return []
+    elif f_type is dict:
+        return {}
 
