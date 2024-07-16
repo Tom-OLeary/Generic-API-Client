@@ -10,3 +10,6 @@ This is meant to serve as a general example for sending requests to a 3rd party 
 
 ## exceptions.py
 - exception and retry handling
+
+## request_handler.py
+- uses triggers to determine API request type and endpoint
